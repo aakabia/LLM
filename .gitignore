@@ -141,3 +141,4 @@ dist
 
 # Ignore virtual environment folder
 venv/
+textFiles/
