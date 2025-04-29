@@ -84,7 +84,7 @@ def getWordsOfLength(series:list[str], wordsAmount:int):
 
 
 
-def cleanAndWriteTextData(series:list[str], wordsAmount:int, textPath:str):
+def cleanAndWriteTextData(series:list[str], wordsAmount:int):
 
     """
     Processes a series of strings with the following steps:
@@ -102,7 +102,7 @@ def cleanAndWriteTextData(series:list[str], wordsAmount:int, textPath:str):
     Args:
         Series list[str]: A series of strings.
         wordsAmount (int): The Amount of words to output.
-        textPath (str): The Path for the txt file output.
+       
         
 
     Returns:
@@ -119,23 +119,29 @@ def cleanAndWriteTextData(series:list[str], wordsAmount:int, textPath:str):
     listOfWords = getWordsOfLength(cleanedSeries, wordsAmount)
 
 
-    os.makedirs('textFiles', exist_ok=True)
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    textDirPath = os.path.join(root_dir, "textFiles")
+    os.makedirs(textDirPath, exist_ok=True)
+    
+   # Above creates our textFiles directory in the root directory 
+
+
+    textPath = os.path.join(textDirPath, "output.txt")
 
     with open(textPath, 'w') as f:
         for line in listOfWords:
             f.write(f"{line}")
+    
+    print("Succesfully created text directory and file! 😊 ")
 
 
 
-
-textPath = "textFiles/output.txt"
-# create outPut Path
 
 english_rows = df["source"] 
 # Create series from dataFrame 
 
 
-cleanAndWriteTextData(english_rows,350000,textPath)
+cleanAndWriteTextData(english_rows,350000)
 # clean and write the data
 
 
