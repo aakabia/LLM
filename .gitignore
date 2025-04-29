@@ -139,6 +139,16 @@ dist
 # Ignore Jupyter checkpoint files
 .ipynb_checkpoints/
 
-# Ignore virtual environment folder
+
+
+# Ignore virtual environment directory
 venv/
+
+# Ignore generated files
 textFiles/
+
+# Ignore local libraries or any other non-essential folders
+minbpe/
+
+# Ignore trained tokenizer models or any large files that can be regenerated
+tokenizers/

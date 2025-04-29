@@ -110,9 +110,6 @@ def cleanAndWriteTextData(series:list[str], wordsAmount:int, textPath:str):
 
     """  
 
-
-
-
     nums = ("0","1","2","3","4","5","6","7","8","9","'")
     series = series.apply(cleanString)
     cleanedSeries = series[~series.str.contains(r'\.{3,}|…', na=False) & ~series.str.startswith(nums) & ~series.str.contains(r'\b[a-z]{10,}\b|[a-z]+[A-Z][a-z]+') & (series != "")]
@@ -126,7 +123,7 @@ def cleanAndWriteTextData(series:list[str], wordsAmount:int, textPath:str):
 
     with open(textPath, 'w') as f:
         for line in listOfWords:
-            f.write(f"{line}\n")
+            f.write(f"{line}")
 
 
 
@@ -138,7 +135,7 @@ english_rows = df["source"]
 # Create series from dataFrame 
 
 
-cleanAndWriteTextData(english_rows,2000,textPath)
+cleanAndWriteTextData(english_rows,350000,textPath)
 # clean and write the data
 
 
