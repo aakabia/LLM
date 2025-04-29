@@ -1,7 +1,9 @@
 import sys
-sys.path.append('.')
-from minbpe import BasicTokenizer
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# tells system to look at root directory for moduels
+from minbpe import BasicTokenizer
+
 
 
 
@@ -30,9 +32,12 @@ def getTokenizer():
         Exception: If an error occurs while training or saving the tokenizer.
     """
 
-    existingTokenizerFilePath = "tokenizers/tokenizer.model"
-    tokenizerFilePath = 'tokenizers/tokenizer'
 
+
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    existingTokenizerFilePath = os.path.join(root_dir, "tokenizers","tokenizer.model")
+    tokenizerFilePath= os.path.join(root_dir, "tokenizers","tokenizer")
+    
     tokenizer = BasicTokenizer()
 
     if os.path.exists(existingTokenizerFilePath):
@@ -41,7 +46,14 @@ def getTokenizer():
 
 
     try:
-        textpath = "textFiles/output.txt"
+
+        textpath = "../textFiles/output.txt"
+
+        if not os.path.exists(textpath):
+            print(f"File not found: {textpath}")
+            return 
+        
+
 
         with open(textpath, 'r') as f:
             textSequence = f.read()
@@ -51,8 +63,11 @@ def getTokenizer():
         # can update vocab_size for token output
 
 
-        os.makedirs('tokenizers', exist_ok=True)
 
+        tokenizersDirPath = os.path.join(root_dir, "tokenizers")
+        os.makedirs(tokenizersDirPath, exist_ok=True)
+        
+        # Above creates our textFiles directory in the root directory 
 
 
         vocab = tokenizer.vocab
@@ -68,6 +83,8 @@ def getTokenizer():
 
 
         tokenizer.save(file_prefix=tokenizerFilePath)
+
+        print("Succesfully created tokenizer directory files! 😊 ")
 
 
         # encoded_tokens = tokenizer.encode(textSequence)
